@@ -1,18 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAgents;
 
-public class PenguinAcademy : MonoBehaviour
+public class PenguinAcademy : Academy
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private PenguinArea[] penguinAreas;
 
-    // Update is called once per frame
-    void Update()
+    public override void AcademyReset()
     {
-        
+        // Get the prenguin areas
+        if(penguinAreas == null)
+        {
+            penguinAreas = FindObjectsOfType<PenguinArea>();
+        }
+
+        // Setup areas
+        foreach(PenguinArea penguinArea in penguinAreas)
+        {
+            penguinArea.fishSpeed = resetParameters["fish_speed"];
+            penguinArea.feedRadius = resetParameters["feed_radius"];
+            penguinArea.ResetArea();
+        }
     }
 }
